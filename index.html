@@ -17,6 +17,7 @@
       font-family: sans-serif;
     }
 
+    /* ローディング画面 */
     #loading-screen {
       position: fixed;
       top: 0; left: 0;
@@ -42,13 +43,6 @@
       transition: opacity 2s ease-out;
     }
 
-    #main-content {
-      display: none;
-      height: 100%;
-      overflow: auto;
-      padding: 20px;
-    }
-
     #skip-button {
       position: absolute;
       bottom: 20px;
@@ -66,6 +60,36 @@
     #skip-button:hover {
       background: rgba(255, 255, 255, 1);
     }
+
+    /* 本来のページ */
+    #main-content {
+      display: none;
+      height: 100%;
+      overflow: auto;
+    }
+
+    header {
+      background-color: #fff;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    header img {
+      max-height: 80px;
+      width: auto;
+    }
+
+    section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      color: #333;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -82,11 +106,22 @@
 
   <!-- ✅ メインコンテンツ -->
   <div id="main-content">
-    <h1>ようこそ！</h1>
-    <p>ここに本来のページ内容が表示されます。</p>
-    <!-- 必要に応じてここに他のHTML要素を追加 -->
+    
+    <!-- ✅ ヘッダー：ロゴ画像 -->
+    <header>
+      <img src="HARUOMILABO LIVE LOGO-Photoroom.png" alt="HARUOMILABO LIVE ロゴ" />
+    </header>
+
+    <!-- ✅ セクション：紹介文 -->
+    <section>
+      <h2>HARUOMILABOの最新情報をお届けするHARUOMILABO LIVE！</h2>
+    </section>
+
+    <!-- ✅ 必要ならここに他のコンテンツを追加 -->
+
   </div>
 
+  <!-- ✅ スクリプト -->
   <script>
     const video = document.getElementById('loading-video');
     const redOverlay = document.getElementById('red-overlay');
@@ -110,15 +145,15 @@
         loadingScreen.style.display = 'none';
         mainContent.style.display = 'block';
         document.body.style.overflow = 'auto';
-      }, 2000); // フェードアウト時間
-    }, 4000); // 動画の長さ（4秒）
+      }, 2000);
+    }, 4000);
 
-    // Skipボタン：即コンテンツ表示、赤フェードなし
+    // Skipボタン：即表示（赤フェードなし）
     skipButton.addEventListener('click', () => {
       if (hasEnded) return;
       hasEnded = true;
 
-      video.pause(); // 動画停止
+      video.pause();
       loadingScreen.style.display = 'none';
       mainContent.style.display = 'block';
       document.body.style.overflow = 'auto';
