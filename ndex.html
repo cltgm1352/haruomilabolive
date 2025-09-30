@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ローディング画面</title>
+  <style>
+    /* 全体リセットと初期設定 */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    /* ローディング全体ラッパー */
+    #loading-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+    }
+
+    /* フルスクリーン動画 */
+    #loading-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 赤いオーバーレイ */
+    #red-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ff0000;
+      opacity: 1;
+      transition: opacity 2s ease-out;
+      pointer-events: none;
+    }
+
+    /* メインコンテンツ（最初は非表示） */
+    #main-content {
+      display: none;
+      height: 100%;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ローディング画面 -->
+  <div id="loading-screen">
+    <video id="loading-video" autoplay muted playsinline>
+      <source src="haruomilabolivesiteop.mp4" type="video/mp4" />
+      お使いのブラウザは動画に対応していません。
+    </video>
+    <div id="red-overlay"></div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div id="main-content">
+    <h1>ようこそ！</h1>
+    <p>ここに本来のページ内容が表示されます。</p>
+  </div>
+
+  <script>
+    const video = document.getElementById('loading-video');
+    const redOverlay = document.getElementById('red-overlay');
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
+
+    // 動画が最後まで再生されたら
+    video.addEventListener('ended', () => {
+      // 赤色をフェードアウト
+      redOverlay.style.opacity = '0';
+
+      // 赤がフェードアウトし終わったらローディングを消し、メインを表示
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        mainContent.style.display = 'block';
+        document.body.style.overflow = 'auto'; // スクロール可能に戻す
+      }, 2000); // フェードアウト時間と合わせる
+    });
+  </script>
+
+</body>
+</html>
