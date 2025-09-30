@@ -33,9 +33,9 @@
       width: 100%;
       height: 100%;
       background-color: #ff0000;
-      opacity: 1;
-      transition: opacity 2s ease-out;
+      opacity: 0; /* ← 最初は透明にする */
       pointer-events: none;
+      transition: opacity 2s ease-out;
     }
 
     #main-content {
@@ -67,17 +67,21 @@
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
 
-    // 4秒で動画が終わる前提で処理開始
+    // 4秒後に赤色フェードアウト（表示 → 消える）
     setTimeout(() => {
-      redOverlay.style.opacity = '0'; // フェードアウト開始
+      redOverlay.style.opacity = '1'; // 赤を一瞬表示
+      // 次のフレームでopacity: 0にすることでフェードアウト演出が効く
+      requestAnimationFrame(() => {
+        redOverlay.style.opacity = '0';
+      });
 
-      // フェードアウト完了後、ローディング画面非表示 & コンテンツ表示
+      // フェード完了後にコンテンツ表示
       setTimeout(() => {
         loadingScreen.style.display = 'none';
         mainContent.style.display = 'block';
-        document.body.style.overflow = 'auto'; // スクロール解禁
-      }, 2000); // 2秒後（フェード完了）
-    }, 4000); // 4秒後に赤をフェードアウト
+        document.body.style.overflow = 'auto';
+      }, 2000);
+    }, 4000);
   </script>
 
 </body>
