@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ローディング画面（Skip & フェードなし）</title>
+  <title>HARUOMI LABO LIVE</title>
+
+  <!-- ✅ ファビコン -->
+  <link rel="icon" type="image/png" href="haruomilabilive-favicon.png" />
+
   <style>
     body, html {
       margin: 0;
@@ -42,6 +46,7 @@
       display: none;
       height: 100%;
       overflow: auto;
+      padding: 20px;
     }
 
     #skip-button {
@@ -65,7 +70,7 @@
 </head>
 <body>
 
-  <!-- ローディング画面 -->
+  <!-- ✅ ローディング画面 -->
   <div id="loading-screen">
     <video id="loading-video" autoplay muted playsinline>
       <source src="haruomilabolivesiteop.mp4" type="video/mp4" />
@@ -75,10 +80,11 @@
     <button id="skip-button">Skip</button>
   </div>
 
-  <!-- メインコンテンツ -->
+  <!-- ✅ メインコンテンツ -->
   <div id="main-content">
     <h1>ようこそ！</h1>
     <p>ここに本来のページ内容が表示されます。</p>
+    <!-- 必要に応じてここに他のHTML要素を追加 -->
   </div>
 
   <script>
@@ -90,7 +96,7 @@
 
     let hasEnded = false;
 
-    // 通常終了（4秒後）：赤フェードアウト → コンテンツ表示
+    // 通常：4秒後に赤フェードアウト → コンテンツ表示
     setTimeout(() => {
       if (hasEnded) return;
       hasEnded = true;
@@ -104,10 +110,10 @@
         loadingScreen.style.display = 'none';
         mainContent.style.display = 'block';
         document.body.style.overflow = 'auto';
-      }, 2000);
-    }, 4000);
+      }, 2000); // フェードアウト時間
+    }, 4000); // 動画の長さ（4秒）
 
-    // Skipボタンを押した場合：即座に動画＆ローディング非表示
+    // Skipボタン：即コンテンツ表示、赤フェードなし
     skipButton.addEventListener('click', () => {
       if (hasEnded) return;
       hasEnded = true;
